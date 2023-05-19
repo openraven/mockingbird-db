@@ -1,5 +1,6 @@
 import multiprocessing
 import logging
+import sys
 from typing import List, Dict
 
 import numpy as np
@@ -18,6 +19,17 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 handler.setFormatter(formatter)
 
 logger.addHandler(handler)
+
+
+def prompt_confirmation():
+    while True:
+        confirmation = input("Are you sure you want to proceed? (yes/no): ")
+        if confirmation.lower() == 'yes':
+            return True
+        elif confirmation.lower() == 'no':
+            return False
+        else:
+            print("Invalid input. Please enter 'yes' or 'no'.")
 
 
 class MockingbirdDBTable:
@@ -67,8 +79,15 @@ class MockingbirdDBTable:
         row_count = self._mb_db_connection.check_if_table_exists(self._table_name)
 
         if row_count != -1:
-            logger.warning(f"you are about to delete {row_count} rows in {self._table_name}")
-            self._mb_db_connection.delete_table(self._table_name)
+            logger.warning(f"You are about to delete {row_count} rows in the table '{self._table_name}'.")
+            confirmation = prompt_confirmation()
+
+            if confirmation:
+                self._mb_db_connection.delete_table(self._table_name)
+                logger.info("Table deleted successfully.")
+            else:
+                logger.info("Table deletion cancelled.")
+                sys.exit(0)
 
         conn = self._mb_db_connection.conn
         cur = conn.cursor()
