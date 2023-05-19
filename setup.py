@@ -21,6 +21,7 @@ setup(
             "mockingbird-db=mb_db.__command_line:entry",
         ],
     },
+    url='https://github.com/openraven/mockingbird-db',
     include_package_data=True,
     description="Mockingbird-DB: Populate databases with synthetic data",
     long_description=long_description,
