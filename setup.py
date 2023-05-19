@@ -1,5 +1,8 @@
 from setuptools import setup, find_packages
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 setup(
     name="mockingbird-db",
     version="0.0",
@@ -19,4 +22,8 @@ setup(
         ],
     },
     include_package_data=True,
+    description="Mockingbird-DB: Populate databases with synthetic data",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
 )
+
