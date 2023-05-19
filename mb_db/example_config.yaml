@@ -1,0 +1,29 @@
+name: "Some SSN config"
+db_info:
+  connection_type: "arguments"
+  platform: "postgres"
+  url: "argshere"
+  arguments:
+    host: "your_host"
+    port: "your_port"
+    user: "your_username"
+    password: "your_password"
+    dbname: "your_database_name"
+
+tables:
+  - table_name: "some_table"
+    rows: 1000
+    columns:
+      - column_name: "ssn"
+        datasources:
+          - datasource_name: "US Social Security Number"
+            datasource_path: "./datasets/us_ssn.csv"
+            datasource_ratio: 0.7
+          - datasource_name: "Random Data"
+            datasource_path: "random_data"
+            datasource_ratio: 0.1
+          - datasource_name: "Null Data"
+            datasource_path: "null"
+            datasource_ratio: 0.2
+        nested_json_name: "ssn"
+        column_type: "string"
